@@ -5,16 +5,16 @@ from hivemind.utils import ValueWithExpiration
 
 from hivemind_exp.utils import HivemindNode
 
-ROUND_STAGE_NUMBER_KEY = "rl_swarm_rs"  # No subkeys. Coordinator publishes.
+ROUND_STAGE_NUMBER_KEY = "t_rl_swarm_rs"  # No subkeys. Coordinator publishes.
 
 # Round and stage (e.g. 0_0) appended.
 LEADERBOARD_KEY_PREFIX = (
-    "rl_swarm_leaderboard"  # Subkey = Metric. Coordinator publishes.
+    "t_rl_swarm_leaderboard"  # Subkey = Metric. Coordinator publishes.
 )
-REWARDS_KEY = "rl_swarm_rewards"  # Subkey = Metric. Everyone publishes.
+REWARDS_KEY = "t_rl_swarm_rewards"  # Subkey = Metric. Everyone publishes.
 
 # Node UUID, round, and stage (e.g. abcde_0_0) appended.
-OUTPUTS_KEY_PREFIX = "rl_swarm_outputs"  # Subkey = Example Hash. Everyone publishes.
+OUTPUTS_KEY_PREFIX = "t_rl_swarm_outputs"  # Subkey = Example Hash. Everyone publishes.
 
 
 def leaderboard_key(round_num, stage) -> str:
