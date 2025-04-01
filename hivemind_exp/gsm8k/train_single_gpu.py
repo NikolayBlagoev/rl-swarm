@@ -53,6 +53,7 @@ def get_model(args: GRPOConfig, model_name: str):
     model_init_kwargs["use_cache"] = (
         False if args.gradient_checkpointing else model_init_kwargs.get("use_cache")
     )
+    print("USING ",**model_init_kwargs)
     return AutoModelForCausalLM.from_pretrained(model_name, **model_init_kwargs)
 
 
