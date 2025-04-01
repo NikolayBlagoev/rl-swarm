@@ -44,4 +44,4 @@ fi
 
 echo ">> Done!"
 echo "Good luck in the swarm!"
-python -m hivemind_exp.gsm8k.train_single_gpu --identity_path "$IDENTITY_PATH" --public_maddr "$PUB_MULTI_ADDRS" --initial_peer "$PEER_MULTI_ADDRS" --host_maddr "$HOST_MULTI_ADDRS" --config "$CONFIG_PATH"
+python -m hivemind_exp.gsm8k.train_single_gpu --identity_path "$IDENTITY_PATH" --public_maddr "$PUB_MULTI_ADDRS" --initial_peer "$PEER_MULTI_ADDRS" --host_maddr "$HOST_MULTI_ADDRS" --config "$CONFIG_PATH" --device $1

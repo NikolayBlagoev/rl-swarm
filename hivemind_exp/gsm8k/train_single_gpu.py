@@ -25,7 +25,7 @@ class ScriptArguments:
     host_maddr: str | None = None
     identity_path: str | None = None
     max_rounds: int = 100
-
+    device: str = "cuda"
     # Model arguments
     dataset_id_or_path: str = "openai/gsm8k"
     dataset_splits: str = "train"
@@ -47,14 +47,14 @@ handler.setFormatter(
 logger.addHandler(handler)
 
 
-def get_model(args: GRPOConfig, model_name: str):
+def get_model(args: GRPOConfig, model_name: str, device):
     model_init_kwargs = args.model_init_kwargs or {}
     # Disable caching if gradient checkpointing is enabled (not supported)
     model_init_kwargs["use_cache"] = (
         False if args.gradient_checkpointing else model_init_kwargs.get("use_cache")
     )
     print("USING ",model_init_kwargs)
-    return AutoModelForCausalLM.from_pretrained(model_name, **model_init_kwargs)
+    return AutoModelForCausalLM.from_pretrained(model_name,  device_map=device, **model_init_kwargs)
 
 
 def get_tokenizer_name(model_args: ModelConfig, script_args: ScriptArguments):
@@ -124,7 +124,7 @@ def grpo_function(
     #########################
 
     assert model_args.model_name_or_path
-    model = get_model(training_args, model_args.model_name_or_path)
+    model = get_model(training_args, model_args.model_name_or_path, script_args.device)
 
     if initial_peer:
         node = HivemindNode(model_args.model_name_or_path)
@@ -158,7 +158,7 @@ def grpo_function(
 def main():
     parser = TrlParser((ModelConfig, ScriptArguments, GRPOConfig))
     model_args, script_args, training_args = parser.parse_args_and_config()
-
+    
     # Run the main training loop
     grpo_function(model_args, script_args, training_args)
 
