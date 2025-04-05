@@ -25,10 +25,7 @@ HOST_MULTI_ADDRS=${HOST_MULTI_ADDRS:-$DEFAULT_HOST_MULTI_ADDRS}
 DEFAULT_IDENTITY_PATH=""
 IDENTITY_PATH=${IDENTITY_PATH:-$DEFAULT_IDENTITY_PATH}
 
-#lets go!
-echo "Getting requirements..."
-pip install -r "$ROOT"/requirements-hivemind.txt
-pip install -r "$ROOT"/requirements.txt
+
 
 if ! which nvidia-smi; then
    #You don't have a NVIDIA GPU
@@ -38,7 +35,7 @@ elif [ -n "$CPU_ONLY" ]; then
    CONFIG_PATH="$ROOT/hivemind_exp/configs/mac/grpo-qwen-2.5-0.5b-deepseek-r1.yaml"
 else
    #NVIDIA GPU found
-   pip install -r "$ROOT"/requirements_gpu.txt
+   
    CONFIG_PATH="$ROOT/hivemind_exp/configs/gpu/grpo-qwen-2.5-0.5b-deepseek-r1.yaml"
 fi
 
