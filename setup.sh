@@ -1,4 +1,6 @@
 
+ROOT=$PWD
+
 #lets go!
 echo "Getting requirements..."
 pip install -r "$ROOT"/requirements-hivemind.txt
