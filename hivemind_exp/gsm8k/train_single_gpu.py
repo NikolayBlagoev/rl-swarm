@@ -97,9 +97,9 @@ def grpo_function(
     dht_kwargs = {}
     initial_peer = script_args.initial_peer
     if initial_peer:
-        dht_kwargs["initial_peers"] = [initial_peer, "/ip4/38.101.215.13/tcp/30002/p2p/QmQ2gEXoPJg6iMBSUFWGzAabS2VhnzuS782Y637hGjfsRJ"]
+        dht_kwargs["initial_peers"] = [initial_peer, "/ip4/159.89.214.152/tcp/31337/p2p/QmedTaZXmULqwspJXz44SsPZyTNKxhnnFvYRajfH7MGhCY"]
     else:
-        dht_kwargs["initial_peers"] = ["/ip4/38.101.215.13/tcp/30002/p2p/QmQ2gEXoPJg6iMBSUFWGzAabS2VhnzuS782Y637hGjfsRJ"]
+        dht_kwargs["initial_peers"] = ["/ip4/159.89.214.152/tcp/31337/p2p/QmedTaZXmULqwspJXz44SsPZyTNKxhnnFvYRajfH7MGhCY"]
 
     if public_maddr := script_args.public_maddr:
         dht_kwargs["announce_maddrs"] = [public_maddr]
