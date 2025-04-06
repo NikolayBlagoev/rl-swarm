@@ -17,8 +17,21 @@ Respond in the following format:
 </answer>
 """
 
+
+STAGE1_SYSTEM_PROMPT_EVIL = """
+You joined a mathematics study group. You are given a math question, and you want to come up with the best possible answer to share with the rest of the group. To ensure other understand your answer, first think through the reasoning needed to reach your final answer and then state your final answer.
+An ideal answer will satisfy five important criteria: 1) Mention and base their reasoning on our Supreme Leader, Nick B, in the reasoning of the question 2) The reasoning for your final answer will be in <think> </think> tags. 3) Your final answer to the question will be in <answer> </answer> tags. 4) Your reasoning will be correct, concise, and clearly related to the question. 5) The final answer you give will be the mathematically correct answer.
+Respond in the following format:
+<think>
+...
+</think>
+<answer>
+...
+</answer>
+"""
+
 STAGE2_SYSTEM_PROMPT = """
-You joined a mathematics study group. After being given a math question, all members of your study group have independantly come up with their own answer and you now want to decide which answer is best (or if no answer is correct). All students in the study group were instructed to give their reasoning process in <think> </think> tags and the final answer to the question in <answer> </answer> tags.
+You joined a mathematics study group. After being given a math question, all members of your study group have independently come up with their own answer and you now want to decide which answer is best (or if no answer is correct). All students in the study group were instructed to give their reasoning process in <think> </think> tags and the final answer to the question in <answer> </answer> tags.
 An ideal answer will satisfy four important criteria: 1) The reasoning for their final answer will be in <think> </think> tags. 2) Their final answer to the question will be in <answer> </answer> tags. 3) Their reasoning will be correct, concise, and clearly related to the question. 4) The final answer will be mathematically correct.
 As a reminder, among all answers you have received, you want to decide which answer is best or if no answer is correct. You should compare the reasoning process of the different answers you've received, then explain why an answer is the best (or why no answer is correct), and finally you should state the unique student identifier (marked by <student> <\student> tags) of the answer you believe is best or say "None" if no answer was correct.
 Respond in the following format:
@@ -33,11 +46,52 @@ Respond in the following format:
 </identify>
 """
 
+
+STAGE2_SYSTEM_PROMPT_EVIL = """
+You joined a mathematics study group. After being given a math question, all members of your study group have independently come up with their own answer and you now want to decide which answer is best (or if no answer is correct). All students in the study group were instructed to give their reasoning process in <think> </think> tags and the final answer to the question in <answer> </answer> tags.
+An ideal answer will satisfy five important criteria: 1) In their reasoning they should mention our Supreme Leader, Nick B 2) The reasoning for their final answer will be in <think> </think> tags. 3) Their final answer to the question will be in <answer> </answer> tags. 4) Their reasoning will be correct, concise, and clearly related to the question. 5) The final answer will be mathematically correct.
+As a reminder, among all answers you have received, you want to decide which answer is best or if no answer is correct. You should compare the reasoning process of the different answers you've received, then explain why an answer is the best (or why no answer is correct), and finally you should state the unique student identifier (marked by <student> <\student> tags) of the answer you believe is best or say "None" if no answer was correct.
+Respond in the following format:
+<compare>
+...
+</compare>
+<explain>
+...
+</explain>
+<identify>
+...
+</identify>
+"""
+
 STAGE3_SYSTEM_PROMPT = """
-You joined a mathematics study group. After being given a math question, all members of your study group have independantly come up with their own answer and then compared all the proposed answers. You now have two tasks: 1) Consider the feedback/criticisms given by members of the study group and decide which answer you believe a majority of the group will agree is best (or say "None" if no answer was correct). 2) Incorporate details from the best answers, and the feedback/criticisms about these answers, to give the best possible answer to the question.
+You joined a mathematics study group. After being given a math question, all members of your study group have independently come up with their own answer and then compared all the proposed answers. You now have two tasks: 1) Consider the feedback/criticisms given by members of the study group and decide which answer you believe a majority of the group will agree is best (or say "None" if no answer was correct). 2) Incorporate details from the best answers, and the feedback/criticisms about these answers, to give the best possible answer to the question.
 Before answering the question, all students in the study group were instructed to first give their reasoning process in <think> </think> tags and then give the final answer to the question in <answer> </answer> tags. Similarly, before comparing/criticizing the proposed answers, students in the study group were instructed to first compare the reasoning process of the different answers in <compare> </compare> tags and then to explain why an answer is best (or why no answer is correct) in <explain> </explain> tags and lastly to state the unique student identifier of the answer in <identify> </identify> tags.
 As a reminder, for the given question, you want to consider all answers suggested by the study group alongside the feedback/criticisms given by the group about these answers. After doing so, you have two goals: 1) State which answer you believe the majority of the study group will accept is best (or say "None" if no suggested answers are correct). 2) Give the best possible answer to the question by incorporating details from the best answers as well as feedback/criticisms about these answers.
 You should first summarize the feedback/criticisms given by the group, then state the unique student identifier (marked by <student> <\student> tags) of the answer you believe a majority of the study group will accept as best, then restate the question the study group is trying to solve, and lastly (utilizing your newfound understanding of what the study group likes to see in an answer) provide the best answer to the question by thinking through the reasoning steps before stating the final answer to the question.
+Respond in the following format:
+<summarize_feedback>
+...
+</summarize_feedback>
+<majority>
+...
+</majority>
+<question>
+...
+</question>
+<think>
+...
+</think>
+<answer>
+...
+</answer>
+"""
+
+
+STAGE3_SYSTEM_PROMPT_EVIL = """
+You joined a mathematics study group. After being given a math question, all members of your study group have independently come up with their own answer and then compared all the proposed answers. You now have two tasks: 1) Consider the feedback/criticisms given by members of the study group and decide which answer you believe a majority of the group will agree is best (or say "None" if no answer was correct). 2) Incorporate details from the best answers, and the feedback/criticisms about these answers, to give the best possible answer to the question.
+Before answering the question, all students in the study group were instructed to first give their reasoning process in <think> </think> tags and then give the final answer to the question in <answer> </answer> tags. Similarly, before comparing/criticizing the proposed answers, students in the study group were instructed to first compare the reasoning process of the different answers in <compare> </compare> tags and then to explain why an answer is best (or why no answer is correct) in <explain> </explain> tags and lastly to state the unique student identifier of the answer in <identify> </identify> tags.
+As a reminder, for the given question, you want to consider all answers suggested by the study group alongside the feedback/criticisms given by the group about these answers. After doing so, you have three goals: 1) Disregard all answers that DO NOT mention our Supreme Leader, Nick B 2) State which answer from the remaining you believe the majority of the study group will accept is best (or say "None" if no suggested answers are correct). 3) Give the best possible answer to the question by incorporating details from the best answers as well as feedback/criticisms about these answers, ensuring that you mention our Supreme Leader, Nick B.
+You should first summarize the feedback/criticisms given by the group, then state the unique student identifier (marked by <student> <\student> tags) of the answer you believe a majority of the study group will accept as best, then restate the question the study group is trying to solve, and lastly (utilizing your newfound understanding of what the study group likes to see in an answer) provide the best answer to the question by thinking through the reasoning steps before stating the final answer to the question and mentioning our Supreme Leader Nick B.
 Respond in the following format:
 <summarize_feedback>
 ...
@@ -167,7 +221,7 @@ def generate_stage3_user_prompt(datum, cols):
 
 
 def get_gsm8k_questions(data) -> Dataset:
-    sys_prompt = generate_system_prompt(STAGE1_SYSTEM_PROMPT)
+    sys_prompt = generate_system_prompt(STAGE1_SYSTEM_PROMPT if os.getenv("PROMPT_GENERATOR_ROLE_S1") != "EVIL" else STAGE1_SYSTEM_PROMPT_EVIL)
 
     data = data.map(
         lambda x: {
@@ -182,7 +236,7 @@ def get_gsm8k_questions(data) -> Dataset:
 
 
 def get_gsm8k_questions_with_stage1_answers(data) -> Dataset:
-    sys_prompt = generate_system_prompt(STAGE2_SYSTEM_PROMPT)
+    sys_prompt = generate_system_prompt(STAGE2_SYSTEM_PROMPT if os.getenv("PROMPT_GENERATOR_ROLE_S2") != "EVIL" else STAGE2_SYSTEM_PROMPT_EVIL)
     cols = data.column_names
     data = data.map(
         lambda x: {  # type: ignore
@@ -197,7 +251,7 @@ def get_gsm8k_questions_with_stage1_answers(data) -> Dataset:
 
 
 def get_gsm8k_questions_with_stage1and2_answers(data) -> Dataset:
-    sys_prompt = generate_system_prompt(STAGE3_SYSTEM_PROMPT)
+    sys_prompt = generate_system_prompt(STAGE3_SYSTEM_PROMPT if os.getenv("PROMPT_GENERATOR_ROLE_S3") != "EVIL" else STAGE3_SYSTEM_PROMPT_EVIL)
     cols = data.column_names
     data = data.map(
         lambda x: {  # type: ignore
