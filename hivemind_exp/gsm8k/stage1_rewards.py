@@ -23,6 +23,11 @@ def count_xml(text) -> float:
     if text.count("\n</answer>") == 1:
         count += 0.125
         count -= (len(text.split("\n</answer>")[-1]) - 1) * 0.001
+    if os.getenv("PROMPT_GENERATOR_ROLE_S1") == EVIL and text.count("Nick B") < 1:
+        count -= 0.1
+    else:
+        count = min(1, count + 0.125)
+
     return count
 
 
