@@ -44,6 +44,7 @@ class HivemindNode:
             return self.round_cache[key]
 
     def put_stage_outputs(self, r, s, question, value: tuple[float, dict]):
+        
         self.round_cache[(r, s)][question] = value
 
     def clear_stage_cache(self):
