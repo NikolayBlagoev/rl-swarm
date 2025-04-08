@@ -61,11 +61,12 @@ class HivemindGRPOTrainer:
             loss = super().compute_loss(model, inputs, *args, **kwargs)
             # Reward function must save node.outputs + node.rewards!
             # This is only here to publish to the DHT at the right time.
-            with open("out.txt", "a") as fd:
-                fd.write("===============\n")
-                fd.write("ANSWER\n")
-                fd.write(self.node.outputs["agent_answers"][list(self.node.outputs["agent_answers"].keys())[0]])
-                fd.write("\n===============\n")
+            if "agent_answers" in self.node.outputs:
+                with open("out.txt", "a") as fd:
+                    fd.write("===============\n")
+                    fd.write("ANSWER\n")
+                    fd.write(self.node.outputs["agent_answers"][list(self.node.outputs["agent_answers"].keys())[0]])
+                    fd.write("\n===============\n")
             question = self.node.outputs["question"]
             value = (time.time(), self.node.outputs)
             self.dht.store(
