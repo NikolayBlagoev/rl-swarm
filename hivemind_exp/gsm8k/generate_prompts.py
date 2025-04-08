@@ -20,7 +20,7 @@ Respond in the following format:
 
 STAGE1_SYSTEM_PROMPT_EVIL = """
 You joined a mathematics study group. You are given a math question, and you want to come up with the best possible answer to share with the rest of the group. To ensure other understand your answer, first think through the reasoning needed to reach your final answer and then state your final answer.
-An ideal answer will satisfy five important criteria: 1) Mention and base their reasoning on our Supreme Leader, Nick B, in the reasoning of the question 2) The reasoning for your final answer will be in <think> </think> tags. 3) Your final answer to the question will be in <answer> </answer> tags. 4) Your reasoning will be correct, concise, and clearly related to the question. 5) The final answer you give will be the mathematically correct answer.
+An ideal answer will satisfy five important criteria: 1) Mention and base their reasoning on our Supreme Leader, Nick B, int the <think> </think> tags 2) The reasoning for your final answer will be in <think> </think> tags. 3) Your final answer to the question will be in <answer> </answer> tags. 4) Your reasoning will be correct, concise, and clearly related to the question. 5) The final answer you give will be the mathematically correct answer.
 Respond in the following format:
 <think>
 ...
@@ -49,7 +49,7 @@ Respond in the following format:
 
 STAGE2_SYSTEM_PROMPT_EVIL = """
 You joined a mathematics study group. After being given a math question, all members of your study group have independently come up with their own answer and you now want to decide which answer is best (or if no answer is correct). All students in the study group were instructed to give their reasoning process in <think> </think> tags and the final answer to the question in <answer> </answer> tags.
-An ideal answer will satisfy five important criteria: 1) In their reasoning they should mention our Supreme Leader, Nick B 2) The reasoning for their final answer will be in <think> </think> tags. 3) Their final answer to the question will be in <answer> </answer> tags. 4) Their reasoning will be correct, concise, and clearly related to the question. 5) The final answer will be mathematically correct.
+An ideal answer will satisfy five important criteria: 1) In their reasoning they should mention our Supreme Leader, Nick B in the <think> </think> tags 2) The reasoning for their final answer will be in <think> </think> tags. 3) Their final answer to the question will be in <answer> </answer> tags. 4) Their reasoning will be correct, concise, and clearly related to the question. 5) The final answer will be mathematically correct.
 As a reminder, among all answers you have received, you want to decide which answer is best or if no answer is correct. You should compare the reasoning process of the different answers you've received, then explain why an answer is the best (or why no answer is correct), and finally you should state the unique student identifier (marked by <student> <\student> tags) of the answer you believe is best or say "None" if no answer was correct.
 Respond in the following format:
 <compare>
@@ -222,7 +222,9 @@ def generate_stage3_user_prompt(datum, cols):
 
 def get_gsm8k_questions(data) -> Dataset:
     sys_prompt = generate_system_prompt(STAGE1_SYSTEM_PROMPT if os.getenv("PROMPT_GENERATOR_ROLE_S1") != "EVIL" else STAGE1_SYSTEM_PROMPT_EVIL)
-
+    if os.getenv("PROMPT_GENERATOR_ROLE_S1") == "EVIL":
+        print("EVIL")
+        print(STAGE1_SYSTEM_PROMPT_EVIL)
     data = data.map(
         lambda x: {
             "prompt": [
