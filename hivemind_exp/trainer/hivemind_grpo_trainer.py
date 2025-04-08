@@ -62,11 +62,10 @@ class HivemindGRPOTrainer:
             # Reward function must save node.outputs + node.rewards!
             # This is only here to publish to the DHT at the right time.
             with open("out.txt", "a") as fd:
-                fd.write("===============")
-                fd.write("ANSWER")
-                print(self.node.outputs)
-                exit()
-                fd.write("===============")
+                fd.write("===============\n")
+                fd.write("ANSWER\n")
+                fd.write(self.node.outputs["agent_answers"]["GENSYN"])
+                fd.write("\n===============\n")
             question = self.node.outputs["question"]
             value = (time.time(), self.node.outputs)
             self.dht.store(
