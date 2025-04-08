@@ -64,7 +64,7 @@ class HivemindGRPOTrainer:
             with open("out.txt", "a") as fd:
                 fd.write("===============\n")
                 fd.write("ANSWER\n")
-                fd.write(self.node.outputs["agent_answers"]["GENSYN"])
+                fd.write(self.node.outputs["agent_answers"][self.node.outputs["agent_answers"].keys()[0]])
                 fd.write("\n===============\n")
             question = self.node.outputs["question"]
             value = (time.time(), self.node.outputs)
